@@ -1,0 +1,35 @@
+{
+  "name": "node-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development nodemon --exec 'npm run local'",
+    "qa": "cross-env NODE_ENV=quality_assurance nodemon --exec 'npm run local'",
+    "local": "npm run linter && babel-node src/index.js",
+    "linter": "eslint src/**",
+    "build": "babel src --out-dir dist",
+    "start": "cross-env NODE_ENV=production npm run server",
+    "server": "npm run build && node dist/index"
+  },
+  "author": "Rabah Zeineddine",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "chalk": "^2.4.1",
+    "cross-env": "^5.2.0",
+    "errorhandler": "^1.5.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}
