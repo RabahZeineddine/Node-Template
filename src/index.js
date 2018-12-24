@@ -18,9 +18,7 @@ if (env.NODE_ENV === 'development') {
     app.use(morgan('combined'))
 }
 
-app.get('/', (req, res) => {
-    res.json({ test: 200 })
-})
+// Import and add Routers here. 
 
 app.listen(app.get('PORT'), () => {
     console.log(`App is listening on port: ${chalk.cyanBright(app.get('PORT'))}`)
