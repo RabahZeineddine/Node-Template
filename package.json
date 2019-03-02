@@ -20,16 +20,21 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
-    "chalk": "^2.4.1",
-    "cross-env": "^5.2.0",
-    "errorhandler": "^1.5.0",
-    "morgan": "^1.9.1",
     "nodemon": "^1.18.9"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
+    "errorhandler": "^1.5.0",
     "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1",
     "request": "^2.88.0"
+  },
+  "engines": {
+    "node": ">=6.9",
+    "npm": "5.x"
   }
 }
