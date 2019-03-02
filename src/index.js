@@ -21,6 +21,7 @@ if (env.NODE_ENV === 'development') {
 // Import and add Routers here. 
 
 app.listen(app.get('PORT'), () => {
+    /* eslint-disable no-console */
     console.log(`App is listening on port: ${chalk.cyanBright(app.get('PORT'))}`)
     console.log(`Environment: ${chalk.green(env.NODE_ENV)}`)
 })
