@@ -10,7 +10,8 @@
     "qa": "cross-env NODE_ENV=quality_assurance nodemon --exec 'npm run local'",
     "local": "npm run linter && ts-node src",
     "linter": "eslint src/**/*.ts",
-    "build": "babel src --out-dir dist",
+    "build": "rm -rf ./dist && tsc",
+    "postbuild": "copyfiles -s 'src/**/*' -e 'src/**/*.ts' -u 1 dist",
     "start": "cross-env NODE_ENV=production npm run server",
     "server": "npm run build && node dist/index",
     "clean-install": "rm -rf node_modules && npm install"
@@ -39,6 +40,7 @@
     "@typescript-eslint/parser": "^4.3.0",
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
+    "copyfiles": "^2.3.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
