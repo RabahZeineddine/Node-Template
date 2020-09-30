@@ -1,14 +1,14 @@
-import mongoose from 'mongoose'
+import mongoose, { ConnectionOptions } from 'mongoose'
 import { DATABASE_URL, ca } from '../../config/storage'
 
 
 
-var mongodb
+var mongodb: any
 
 export const init = async () => {
     try {
 
-        let options = {
+        let options: ConnectionOptions = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
@@ -19,7 +19,7 @@ export const init = async () => {
                 ...options,
                 ssl: true,
                 sslValidate: true,
-                sslCA: ca
+                sslCA: ca as any
             }
         }
 
@@ -32,7 +32,7 @@ export const init = async () => {
             init()
         })
 
-        mongodb.connection.on('error', (error) => {
+        mongodb.connection.on('error', (error: any) => {
             console.error(error)
         })
 
@@ -44,8 +44,14 @@ export const init = async () => {
 
 export default class StorageController {
 
+    private database
+
     constructor() {
         this.database = mongodb
+    }
+
+    getDatabase() {
+        return this.database
     }
 }
 

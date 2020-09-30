@@ -29,7 +29,7 @@
         "no-process-env": "off",
         "no-async-promise-executor": "off"
     },
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "sourceType": "module",
         "allowImportExportEverywhere": false,

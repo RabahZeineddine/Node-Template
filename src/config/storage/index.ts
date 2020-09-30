@@ -3,7 +3,7 @@ config()
 import fs from 'fs'
 import path from 'path'
 
-export const DATABASE_URL = process.env.DATABASE_URL
+export const DATABASE_URL: any = process.env.DATABASE_URL
 
 
 

@@ -2,6 +2,11 @@
 export default class User {
 
 
+    private _id
+    private firstName
+    private lastName
+    private email
+    private password
     /**
      *
      * @param {String} _id
@@ -22,7 +27,7 @@ export default class User {
      *
      * @param {String} _id
      */
-    setId(_id) {
+    setId(_id: string) {
         this._id = _id
     }
 
@@ -30,11 +35,11 @@ export default class User {
      *
      * @param {String} email
      */
-    setEmail(email) {
+    setEmail(email: string) {
         this.email = email
     }
 
-    setDataFromDB(userDB) {
+    setDataFromDB(userDB: any) {
         if (userDB) {
             if (userDB._id) this._id = userDB._id
             if (userDB.firstName) this.firstName = userDB.firstName
@@ -45,7 +50,7 @@ export default class User {
     }
 
     toDatabase() {
-        let object = {
+        let object: any = {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,

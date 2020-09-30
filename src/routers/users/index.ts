@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, Request, Response } from 'express'
 import { validator } from '../../config/validator'
 import { createSchema, getByEmailSchema, updateByEmailBodySchema, updateByEmailQuerySchema } from './schemas'
 import { getErrorMessage } from '../../config/responses'
@@ -32,7 +32,7 @@ const initRouter = () => {
 }
 
 
-const create = async (req, res) => {
+const create = async (req: Request, res: Response) => {
     try {
         const usersController = new UsersController()
         let user = new User('', req.body.firstName, req.body.lastName, req.body.email, req.body.password)
@@ -47,7 +47,7 @@ const create = async (req, res) => {
 }
 
 
-const findAll = async (req, res) => {
+const findAll = async (_: Request, res: Response) => {
     try {
         const usersController = new UsersController()
         let result = await usersController.findAll()
@@ -58,7 +58,7 @@ const findAll = async (req, res) => {
 }
 
 
-const findByEmail = async (req, res) => {
+const findByEmail = async (req: Request, res: Response) => {
     try {
         const usersController = new UsersController()
         let { email } = req.params
@@ -70,7 +70,7 @@ const findByEmail = async (req, res) => {
     }
 }
 
-const updateByEmail = async (req, res) => {
+const updateByEmail = async (req: Request, res: Response) => {
     try {
         let { email } = req.params
         let { firstName, lastName } = req.body

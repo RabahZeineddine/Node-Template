@@ -46,9 +46,9 @@ export const ERRORS_CODE = {
         code: 503
     }
 }
-export const getErrorMessage = (code) => {
+export const getErrorMessage = (code: number) => {
     if (!code || typeof code != 'number') return ERRORS.DEFAULT
-    let error = {}
+    let error: any = {}
     error = Object.values(ERRORS_CODE).find((error) => {
         return error.code == code
     })

@@ -1,20 +1,19 @@
 import { config } from 'dotenv'
 config()
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import bodyParser from 'body-parser'
-import '@babel/polyfill'
 import { env, corsOptions } from './config'
 import cors from 'cors'
 import errorhandler from 'errorhandler'
 import morgan from 'morgan'
 import chalk from 'chalk'
 import { AuthMiddleware } from './middleware'
-import SwaggerJSDoc from 'swagger-jsdoc'
+import SwaggerJSDoc, { SwaggerDefinition } from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { options } from './config/swagger'
 import { users } from './routers'
 
-let swaggerSpec = SwaggerJSDoc(options)
+let swaggerSpec: SwaggerDefinition = SwaggerJSDoc(options) as SwaggerDefinition
 
 var app = express()
 
@@ -37,7 +36,7 @@ app.use(`${BASE_PATH}/users`, users)
 
 
 // Custom Handle Error
-app.use((err, req, res, next) => {
+app.use((err: any, _: Request, res: Response, next: NextFunction) => {
     if (err && err.error && err.error.isJoi) {
         // we had a joi error, let's return a custom 400 json response
         res.status(400).json({

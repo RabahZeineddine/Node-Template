@@ -5,12 +5,14 @@ import User from '../../models/user'
 
 export default class UsersController {
 
+    private storageController
+
     constructor() {
         this.storageController = new UsersStorageController()
     }
 
 
-    async create(user) {
+    async create(user: any) {
         return new Promise(async (resolve, reject) => {
             try {
 
@@ -43,7 +45,7 @@ export default class UsersController {
         })
     }
 
-    async findByEmail(email) {
+    async findByEmail(email: string) {
         return new Promise(async (resolve, reject) => {
             try {
                 let user = await this.storageController.findByEmail(email, '-_id email firstName lastName')
@@ -58,11 +60,11 @@ export default class UsersController {
         })
     }
 
-    async updateByEmail(user) {
+    async updateByEmail(user: any): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
                 let userDB = await this.storageController.findByEmail(user.email)
-                let userDB_aux = new User()
+                let userDB_aux: any = new User()
                 userDB_aux.setDataFromDB(userDB)
                 if (userDB) {
                     userDB_aux.firstName = user.firstName

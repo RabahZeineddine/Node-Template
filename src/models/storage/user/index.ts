@@ -1,8 +1,8 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { DATABASE_MODELS } from '../../../config/storage'
 
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

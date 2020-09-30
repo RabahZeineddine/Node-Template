@@ -5,7 +5,7 @@ import { User } from '../../../models/storage'
 export default class UsersStorageController extends StorageController {
 
 
-    async findByEmail(email, select = '') {
+    async findByEmail(email: string, select = ''): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
                 if (email) {
@@ -21,7 +21,7 @@ export default class UsersStorageController extends StorageController {
         })
     }
 
-    async create(user) {
+    async create(user: any): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
                 if (user) {
@@ -49,7 +49,7 @@ export default class UsersStorageController extends StorageController {
         })
     }
 
-    async findOneAndUpdate(user, select = '') {
+    async findOneAndUpdate(user: any, select = '') {
         return new Promise(async (resolve, reject) => {
             try {
                 user.modifiedDate = new Date()

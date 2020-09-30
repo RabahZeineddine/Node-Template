@@ -1,6 +1,6 @@
 import { NODE_ENV } from '../env'
 
-const corsOptions = {
+const corsOptions: any = {
     development: {
         origin: '*'
     },
