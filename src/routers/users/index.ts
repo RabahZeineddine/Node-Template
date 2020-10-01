@@ -1,7 +1,6 @@
-import { Router, Request, Response } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import { validator } from '../../config/validator'
 import { createSchema, getByEmailSchema, updateByEmailBodySchema, updateByEmailQuerySchema } from './schemas'
-import { getErrorMessage } from '../../config/responses'
 import User from '../../models/user'
 import UsersController from '../../controllers/users'
 
@@ -32,7 +31,7 @@ const initRouter = () => {
 }
 
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
         let user = new User('', req.body.firstName, req.body.lastName, req.body.email, req.body.password)
@@ -40,37 +39,35 @@ const create = async (req: Request, res: Response) => {
         res.status(201)
         res.end()
     } catch (error) {
-        console.error(error)
-        res.status(error.code || 500).json({ message: getErrorMessage(error.code || 500) })
+        return next(error)
     }
 
 }
 
 
-const findAll = async (_: Request, res: Response) => {
+const findAll = async (_: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
         let result = await usersController.findAll()
         res.status(200).json(result)
     } catch (error) {
-        res.status(error.code || 500).json({ message: getErrorMessage(error.code || 500) })
+        return next(error)
     }
 }
 
 
-const findByEmail = async (req: Request, res: Response) => {
+const findByEmail = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
         let { email } = req.params
         let result = await usersController.findByEmail(email)
         res.status(200).json(result)
     } catch (error) {
-        console.error(error)
-        res.status(error.code || 500).json({ message: getErrorMessage(error.code || 500) })
+        return next(error)
     }
 }
 
-const updateByEmail = async (req: Request, res: Response) => {
+const updateByEmail = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let { email } = req.params
         let { firstName, lastName } = req.body
@@ -79,7 +76,7 @@ const updateByEmail = async (req: Request, res: Response) => {
         let updatedUser = await usersController.updateByEmail(user)
         res.status(200).json(updatedUser.toJSON())
     } catch (error) {
-        res.status(error.code || 500).json({ message: getErrorMessage(error.code || 500) })
+        return next(error)
     }
 }
 

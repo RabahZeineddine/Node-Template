@@ -20,14 +20,12 @@ export default class Logger {
         transports: [winstonConsole, files]
     })
 
-    static log(message: string) {
-        this.logger.log({
-            message, level: 'info'
-        })
-    }
-
     static error(message: string) {
         this.logger.error(message)
+    }
+
+    static info(message: string) {
+        this.logger.info(message)
     }
 }
 

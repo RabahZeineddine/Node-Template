@@ -1,3 +1,4 @@
-import _auth from './auth'
 
-export const AuthMiddleware = _auth
+export { default as AuthMiddleware } from './auth'
+
+export { default as ErrorMiddleware } from './error/'

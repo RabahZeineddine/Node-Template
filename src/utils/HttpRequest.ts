@@ -1,8 +1,8 @@
 import axios from 'axios'
-import ErrorHandler from './ErrorHandler'
+import ErrorHandler from './ErroHandler'
 import { MEDIA_TYPES } from '../config/HttpRequest'
 import qs from 'qs'
-import { logger } from './Logger'
+import Logger from './Logger'
 
 
 axios.interceptors.request.use(function (config: any) {
@@ -12,16 +12,16 @@ axios.interceptors.request.use(function (config: any) {
 
     config.meta = config.meta || {}
     config.meta.requestStartedAt = new Date().getTime()
-    logger.info(`External Request: ${config.method} ${config.url}`)
-    logger.info(`Body: ${JSON.stringify(config.data, null, 2)}`)
+    Logger.info(`External Request: ${config.method} ${config.url}`)
+    Logger.info(`Body: ${JSON.stringify(config.data, null, 2)}`)
     return config
 })
 
 axios.interceptors.response.use((options: any) => {
-    logger.info(`Request: ${options.config.method.toUpperCase()} ${options.config.url} - ${options.config.status} - ${new Date().getTime() - options.config.meta.requestStartedAt} ms`)
+    Logger.info(`Request: ${options.config.method.toUpperCase()} ${options.config.url} - ${options.config.status} - ${new Date().getTime() - options.config.meta.requestStartedAt} ms`)
     return options
 }, (error) => {
-    logger.error(`Request: ${error.config.method.toUpperCase()} ${error.config.url} - ${error.response.status} - ${new Date().getTime() - error.config.meta.requestStartedAt} ms`)
+    Logger.error(`Request: ${error.config.method.toUpperCase()} ${error.config.url} - ${error.response.status} - ${new Date().getTime() - error.config.meta.requestStartedAt} ms`)
     return error
 })
 
