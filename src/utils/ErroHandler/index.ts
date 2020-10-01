@@ -1,4 +1,4 @@
-import { getErrorMessage } from '../config/responses'
+import { getErrorMessage } from '../../config/responses'
 
 export default class ErrorHandler {
 
