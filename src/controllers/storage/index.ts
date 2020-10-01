@@ -14,7 +14,7 @@ export const init = async () => {
             useFindAndModify: false
         }
 
-        if (!DATABASE_URL.includes('localhost')) {
+        if (!DATABASE_URL?.includes('localhost')) {
             options = {
                 ...options,
                 ssl: true,
@@ -55,5 +55,5 @@ export default class StorageController {
     }
 }
 
-
-init()
+if (DATABASE_URL)
+    init()
