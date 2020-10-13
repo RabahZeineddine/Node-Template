@@ -6,21 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init": "./node_modules/.bin/tsc --init",
-    "set-env": "",
-    "predev": "cross-env NODE_ENV=development",
+    "set-env": "rm -rf .env && ts-node environments",
+    "predev": "cross-env NODE_ENV=development npm run set-env",
     "dev": "npm run nodemon",
     "nodemon": "nodemon -e '*' --watch 'src/' --exec 'npm run start:dev'",
-    "preqa": "cross-env NODE_ENV=quality_assurance",
+    "preqa": "cross-env NODE_ENV=quality_assurance npm run set-env",
     "qa": "npm run nodemon",
-    "prelocal": "cross-env NODE_ENV=local",
+    "prelocal": "cross-env NODE_ENV=local npm run set-env",
     "local": "npm run nodemon",
-    "start:dev": "npm run set-env && npm run linter && ts-node src",
+    "preprod": "cross-env NODE_ENV=production npm run set-env",
+    "prod": "npm run nodemon",
+    "start:dev": "ts-node src",
     "linter": "eslint src/**/*.ts",
     "build": "rm -rf ./dist && tsc",
     "postbuild": "copyfiles -s 'src/**/*' -e 'src/**/*.ts' -u 1 dist",
-    "prestart": "cross-env NODE_ENV=production",
-    "start": "npm run set-env &&  npm run server",
-    "server": "npm run build && node dist/index",
+    "start": "npm run server",
+    "server": "node dist/index",
     "clean-install": "rm -rf node_modules && npm install"
   },
   "husky": {
@@ -65,9 +66,5 @@
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",
     "winston": "^3.3.3"
-  },
-  "engines": {
-    "node": ">=6.9",
-    "npm": "5.x"
   }
 }
