@@ -27,7 +27,7 @@ export default class User {
      *
      * @param {String} _id
      */
-    setId(_id: string) {
+    setId(_id: string): void {
         this._id = _id
     }
 
@@ -35,11 +35,11 @@ export default class User {
      *
      * @param {String} email
      */
-    setEmail(email: string) {
+    setEmail(email: string): void {
         this.email = email
     }
 
-    setDataFromDB(userDB: any) {
+    setDataFromDB(userDB: any): void {
         if (userDB) {
             if (userDB._id) this._id = userDB._id
             if (userDB.firstName) this.firstName = userDB.firstName
@@ -49,8 +49,8 @@ export default class User {
         }
     }
 
-    toDatabase() {
-        let object: any = {
+    toDatabase(): any {
+        const object: any = {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
@@ -60,7 +60,7 @@ export default class User {
         return object
     }
 
-    toJSON() {
+    toJSON(): any {
         return {
             firstName: this.firstName,
             lastName: this.lastName,

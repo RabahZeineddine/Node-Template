@@ -32,12 +32,12 @@ export default class HttpRequest {
         try {
             const fullResponse = options.rawResponse ? true : false
             delete options.rawResponse
-            let response: any = await axios.get(URL, options)
+            const response: any = await axios.get(URL, options)
             if (response.isAxiosError) throw { error: response }
             if (fullResponse) return response
             return response.data
         } catch (error) {
-            let errorHandler = new ErrorHandler({
+            const errorHandler = new ErrorHandler({
                 code: error.response?.status,
                 ...error.response?.data,
             })
@@ -47,11 +47,11 @@ export default class HttpRequest {
 
     static async post(URL: string, body: any = {}, options: any = {}) {
         try {
-            let response: any = await axios.post(URL, body, options)
+            const response: any = await axios.post(URL, body, options)
             if (response.isAxiosError) throw response
             return response.data
         } catch (error) {
-            let errorHandler = new ErrorHandler({
+            const errorHandler = new ErrorHandler({
                 code: error.response?.status || 500,
                 ...error.response?.data,
             })
@@ -60,11 +60,11 @@ export default class HttpRequest {
     }
     static async put(URL: string, body = {}, options = {}) {
         try {
-            let response: any = await axios.put(URL, body, options)
+            const response: any = await axios.put(URL, body, options)
             if (response.isAxiosError) throw response
             return response.data
         } catch (error) {
-            let errorHandler = new ErrorHandler({
+            const errorHandler = new ErrorHandler({
                 code: error.response?.status || 500,
                 ...error.response?.data,
             })
@@ -74,11 +74,11 @@ export default class HttpRequest {
 
     static async patch(URL: string, body = {}, options = {}) {
         try {
-            let response: any = await axios.patch(URL, body, options)
+            const response: any = await axios.patch(URL, body, options)
             if (response.isAxiosError) throw response
             return response.data
         } catch (error) {
-            let errorHandler = new ErrorHandler({
+            const errorHandler = new ErrorHandler({
                 code: error.response?.status || 500,
                 ...error.response?.data,
             })
@@ -88,7 +88,7 @@ export default class HttpRequest {
 
     static async make(URL: string, METHOD: any, body: any = {}, options: any = {}) {
         try {
-            let result: any = await axios({
+            const result: any = await axios({
                 method: METHOD,
                 url: URL,
                 data: body,
@@ -98,7 +98,7 @@ export default class HttpRequest {
                 return result.data
             else throw result
         } catch (error) {
-            let errorHandler = new ErrorHandler({
+            const errorHandler = new ErrorHandler({
                 code: error.response?.status || 500,
                 ...error.response?.data,
             })

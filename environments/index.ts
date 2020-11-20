@@ -5,7 +5,7 @@ import axios from 'axios'
 
 console.log(chalk.cyan('Getting local environments'))
 
-let environment = process.env.NODE_ENV || 'local'
+const environment = process.env.NODE_ENV || 'local'
 
 const URL = `<URL>/${environment}`
 
