@@ -4,7 +4,7 @@ import { createSchema, getByEmailSchema, updateByEmailBodySchema, updateByEmailQ
 import User from '../../models/user'
 import UsersController from '../../controllers/users'
 
-var router = Router()
+const router = Router()
 
 
 const initRouter = () => {
@@ -34,7 +34,7 @@ const initRouter = () => {
 const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
-        let user = new User('', req.body.firstName, req.body.lastName, req.body.email, req.body.password)
+        const user = new User('', req.body.firstName, req.body.lastName, req.body.email, req.body.password)
         await usersController.create(user)
         res.status(201)
         res.end()
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 const findAll = async (_: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
-        let result = await usersController.findAll()
+        const result = await usersController.findAll()
         res.status(200).json(result)
     } catch (error) {
         return next(error)
@@ -59,8 +59,8 @@ const findAll = async (_: Request, res: Response, next: NextFunction) => {
 const findByEmail = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const usersController = new UsersController()
-        let { email } = req.params
-        let result = await usersController.findByEmail(email)
+        const { email } = req.params
+        const result = await usersController.findByEmail(email)
         res.status(200).json(result)
     } catch (error) {
         return next(error)
@@ -69,11 +69,11 @@ const findByEmail = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateByEmail = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let { email } = req.params
-        let { firstName, lastName } = req.body
-        let user = new User('', firstName, lastName, email)
+        const { email } = req.params
+        const { firstName, lastName } = req.body
+        const user = new User('', firstName, lastName, email)
         const usersController = new UsersController()
-        let updatedUser = await usersController.updateByEmail(user)
+        const updatedUser = await usersController.updateByEmail(user)
         res.status(200).json(updatedUser.toJSON())
     } catch (error) {
         return next(error)
