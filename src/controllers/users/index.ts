@@ -1,10 +1,10 @@
 import UsersStorageController from '../storage/users'
-import User from '../../models/user'
+import User from '../../models/user/index'
 
 
 export default class UsersController {
 
-    private storageController
+    private storageController: UsersStorageController
 
     constructor() {
         this.storageController = new UsersStorageController()
@@ -29,7 +29,7 @@ export default class UsersController {
 
     async findAll() {
         try {
-            let users = await this.storageController.findAll('-_id email firstName lastName')
+            const users = await this.storageController.findAll('-_id email firstName lastName')
             return users
         } catch (error) {
             throw { code: error.code }
@@ -38,7 +38,7 @@ export default class UsersController {
 
     async findByEmail(email: string) {
         try {
-            let user = await this.storageController.findByEmail(email, '-_id email firstName lastName')
+            const user = await this.storageController.findByEmail(email, '-_id email firstName lastName')
             if (user) {
                 return user
             } else {
@@ -53,8 +53,8 @@ export default class UsersController {
     async updateByEmail(user: any): Promise<any> {
 
         try {
-            let userDB = await this.storageController.findByEmail(user.email)
-            let userDB_aux: any = new User()
+            const userDB = await this.storageController.findByEmail(user.email)
+            const userDB_aux: any = new User()
             userDB_aux.setDataFromDB(userDB)
             if (userDB) {
                 userDB_aux.firstName = user.firstName

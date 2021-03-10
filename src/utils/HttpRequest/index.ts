@@ -1,8 +1,8 @@
-import axios from 'axios'
-import ErrorHandler from './ErroHandler'
-import { MEDIA_TYPES } from '../config/HttpRequest'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { MEDIA_TYPES } from 'config/HttpRequest'
 import qs from 'qs'
-import Logger from './Logger'
+import ErrorHandler from 'utils/ErrorHandler'
+import Logger from '../Logger/index'
 
 
 axios.interceptors.request.use(function (config: any) {
@@ -17,8 +17,10 @@ axios.interceptors.request.use(function (config: any) {
     return config
 })
 
-axios.interceptors.response.use((options: any) => {
-    Logger.info(`Request: ${options.config.method.toUpperCase()} ${options.config.url} - ${options.config.status} - ${new Date().getTime() - options.config.meta.requestStartedAt} ms`)
+
+axios.interceptors.response.use((options: AxiosResponse) => {
+
+    Logger.info(`Request: ${options?.config?.method?.toUpperCase()} ${options.config.url} - ${options.status} - ${new Date().getTime() - (options.config as any).meta.requestStartedAt} ms`)
     return options
 }, (error) => {
     Logger.error(`Request: ${error.config.method.toUpperCase()} ${error.config.url} - ${error.response.status} - ${new Date().getTime() - error.config.meta.requestStartedAt} ms`)
@@ -45,12 +47,13 @@ export default class HttpRequest {
         }
     }
 
-    static async post(URL: string, body: any = {}, options: any = {}) {
+    static async post(URL: string, body: any = {}, options: AxiosRequestConfig = {}) {
         try {
             const response: any = await axios.post(URL, body, options)
             if (response.isAxiosError) throw response
             return response.data
         } catch (error) {
+            console.log(error)
             const errorHandler = new ErrorHandler({
                 code: error.response?.status || 500,
                 ...error.response?.data,
@@ -58,7 +61,7 @@ export default class HttpRequest {
             throw errorHandler.format()
         }
     }
-    static async put(URL: string, body = {}, options = {}) {
+    static async put(URL: string, body = {}, options: AxiosRequestConfig = {}) {
         try {
             const response: any = await axios.put(URL, body, options)
             if (response.isAxiosError) throw response
@@ -72,7 +75,7 @@ export default class HttpRequest {
         }
     }
 
-    static async patch(URL: string, body = {}, options = {}) {
+    static async patch(URL: string, body = {}, options: AxiosRequestConfig = {}) {
         try {
             const response: any = await axios.patch(URL, body, options)
             if (response.isAxiosError) throw response
@@ -86,7 +89,7 @@ export default class HttpRequest {
         }
     }
 
-    static async make(URL: string, METHOD: any, body: any = {}, options: any = {}) {
+    static async make(URL: string, METHOD: any, body: any = {}, options: AxiosRequestConfig = {}) {
         try {
             const result: any = await axios({
                 method: METHOD,

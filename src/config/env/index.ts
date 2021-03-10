@@ -1,19 +1,17 @@
-/* eslint-disable */
-export const NODE_ENV = process.env.NODE_ENV || 'development'
+import { config } from 'dotenv'
+config()
+import { EnvType, NODE_ENV_TYPE } from '../@types/env'
+import development from './development'
+import quality_assurance from './quality_assurance'
+import production from './production'
 
-const config: any = {
-    development: {
-        PORT: 3000,
-        NODE_ENV
-    },
-    quality_assurance: {
-        PORT: 3000,
-        NODE_ENV
-    },
-    production: {
-        PORT: process.env.PORT || 80,
-        NODE_ENV
-    }
+
+export const NODE_ENV: NODE_ENV_TYPE = process.env.NODE_ENV as NODE_ENV_TYPE || 'development'
+
+const configEnv: EnvType = {
+    development,
+    quality_assurance,
+    production
 }
 
-export default config[NODE_ENV]
+export default configEnv[NODE_ENV]

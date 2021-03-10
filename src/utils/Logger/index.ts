@@ -20,8 +20,9 @@ export default class Logger {
         transports: [winstonConsole, files]
     })
 
-    static error(message: string) {
-        this.logger.error(message)
+    static error(message: any | string) {
+        if (typeof message == 'object') this.logger.error(JSON.stringify(message, null, 2))
+        else this.logger.error(message)
     }
 
     static info(message: string) {

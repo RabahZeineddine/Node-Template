@@ -1,6 +1,3 @@
-import _env from './env'
-import _corsOptions from './cors'
 
-
-export const env = _env
-export const corsOptions = _corsOptions
+export { default as env } from './env'
+export { default as corsOptions } from './cors'

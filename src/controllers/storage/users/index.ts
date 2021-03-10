@@ -8,7 +8,7 @@ export default class UsersStorageController extends StorageController {
     async findByEmail(email: string, select = '', usedSession?: any): Promise<any> {
         try {
             if (email) {
-                let user = this.run(usedSession, async (session) => await User.findOne({ 'email': email }).select(select).session(session).exec())
+                const user = this.run(usedSession, async (session) => await User.findOne({ 'email': email }).select(select).session(session).exec())
                 return user
             } else {
                 throw { code: 400 }
@@ -22,8 +22,8 @@ export default class UsersStorageController extends StorageController {
     async create(user: any, usedSession?: any): Promise<any> {
         try {
             if (user) {
-                let userSchema = new User(user.toDatabase())
-                let newUser = this.run(usedSession, async (session) => await userSchema.save({ session }))
+                const userSchema = new User(user.toDatabase())
+                const newUser = this.run(usedSession, async (session) => await userSchema.save({ session }))
                 return newUser
             } else {
                 throw { code: 400 }
@@ -36,7 +36,7 @@ export default class UsersStorageController extends StorageController {
 
     async findAll(select = '-_id -__v', usedSession?: any) {
         try {
-            let users = this.run(usedSession, async (session) => await User.find({}).select(select).session(session).exec())
+            const users = this.run(usedSession, async (session) => await User.find({}).select(select).session(session).exec())
             return users
         } catch (error) {
             console.error(error)

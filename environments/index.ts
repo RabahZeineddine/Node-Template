@@ -1,26 +1,24 @@
 /* eslint-disable */
 import chalk from 'chalk'
 import fs from 'fs'
-import axios from 'axios'
-
-console.log(chalk.cyan('Getting local environments'))
+import Logger from '../src/utils/Logger/index';
+import path from 'path'
 
 const environment = process.env.NODE_ENV || 'local'
 
-const URL = `<URL>/${environment}`
+Logger.info(chalk.cyan(`Getting ${environment} environments`))
 
-axios.get(URL)
-    .then((result) => {
-        if (result && result.status == 200) {
-            fs.writeFile('.env', result.data, (err) => {
-                if (err) throw err
-                console.log(chalk.green('Environments file created successfully'))
-            })
-        } else throw result
-    })
-    .catch(error => {
-        console.log(chalk.red('An error occurred, Try again later'))
-        console.error(error.status)
-        console.error(error)
-        // return process.exit(1)
-    })
+
+try {
+    const filePath = path.join(__dirname, `.${environment}.env`)
+    const file = fs.readFileSync(filePath, 'utf-8')
+    if (file) {
+        fs.writeFileSync('.env', file)
+        Logger.info(chalk.green('Environments file created successfully'))
+    }
+} catch (error) {
+    Logger.error(chalk.red('An error occurred, Try again later'))
+    Logger.error(error)
+}
+
+
