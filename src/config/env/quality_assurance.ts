@@ -1,6 +1,6 @@
 import { EnvVariables, NODE_ENV_TYPE } from '../@types/env'
 
-export const NODE_ENV: NODE_ENV_TYPE = process.env.NODE_ENV as NODE_ENV_TYPE || 'production'
+export const NODE_ENV: NODE_ENV_TYPE = process.env.NODE_ENV as NODE_ENV_TYPE || 'quality_assurance'
 
 const env: EnvVariables = {
     NODE_ENV,
