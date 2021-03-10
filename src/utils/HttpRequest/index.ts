@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { MEDIA_TYPES } from 'config/HttpRequest'
+import { MEDIA_TYPES } from '../../config/HttpRequest'
 import qs from 'qs'
-import ErrorHandler from 'utils/ErrorHandler'
+import ErrorHandler from '../ErrorHandler'
 import Logger from '../Logger/index'
 
 
